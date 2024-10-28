@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://gjea0yjfr67b"]
+
+[ext_resource type="Texture2D" uid="uid://cu874ki1chdxp" path="res://assets/spirtes/base.png" id="1_8kgwa"]
+[ext_resource type="Shader" path="res://scripts/chao.gdshader" id="2_u4vu7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ycnif"]
+shader = ExtResource("2_u4vu7")
+shader_parameter/speed = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uc7tj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljt8m"]
+size = Vector2(145.778, 32.4444)
+
+[node name="Chao" type="StaticBody2D"]
+
+[node name="chaoSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ycnif")
+position = Vector2(56, 0.499999)
+scale = Vector2(3.41667, 2.21875)
+texture = ExtResource("1_8kgwa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+material = SubResource("ShaderMaterial_uc7tj")
+position = Vector2(56, 0.5)
+scale = Vector2(2.25, 2.25)
+shape = SubResource("RectangleShape2D_ljt8m")

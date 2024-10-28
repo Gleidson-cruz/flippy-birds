@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg0fn230gijx3"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_lue8p"]
+[ext_resource type="Texture2D" uid="uid://bx3x7qyesl6fn" path="res://assets/spirtes/background-day.png" id="1_tue1b"]
+[ext_resource type="Texture2D" uid="uid://bmm4aiqbqnmns" path="res://assets/spirtes/taptap.png" id="2_gp55b"]
+[ext_resource type="Texture2D" uid="uid://b17cyyed6l2oj" path="res://assets/spirtes/gameover.png" id="3_ff0q8"]
+[ext_resource type="FontFile" uid="uid://dnbeet6ux2gov" path="res://font/Kenney Blocks.ttf" id="4_gllnf"]
+[ext_resource type="PackedScene" uid="uid://c2ypw15jex8i0" path="res://assets/Cenas/bird.tscn" id="5_vfbtu"]
+[ext_resource type="PackedScene" uid="uid://gjea0yjfr67b" path="res://assets/Cenas/chao.tscn" id="6_imxix"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xxy3a"]
+font = ExtResource("4_gllnf")
+font_size = 25
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkruf"]
+size = Vector2(310, 553)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o482x"]
+size = Vector2(35.5, 528.5)
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_lue8p")
+
+[node name="background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="background"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_tue1b")
+
+[node name="tap_tap" type="TextureRect" parent="."]
+offset_left = 48.0
+offset_top = 112.0
+offset_right = 237.0
+offset_bottom = 244.0
+texture = ExtResource("2_gp55b")
+
+[node name="Game_over" type="TextureRect" parent="."]
+offset_left = 49.0
+offset_top = 200.0
+offset_right = 241.0
+offset_bottom = 261.0
+texture = ExtResource("3_ff0q8")
+
+[node name="score_label" type="Label" parent="."]
+offset_left = 123.0
+offset_top = 31.0
+offset_right = 163.0
+offset_bottom = 70.0
+text = "0"
+label_settings = SubResource("LabelSettings_xxy3a")
+horizontal_alignment = 1
+
+[node name="Bird" parent="." instance=ExtResource("5_vfbtu")]
+position = Vector2(76, 255)
+
+[node name="Chao" parent="." instance=ExtResource("6_imxix")]
+position = Vector2(83, 498)
+
+[node name="Toutch_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Toutch_area"]
+position = Vector2(142, 266)
+shape = SubResource("RectangleShape2D_xkruf")
+
+[node name="Restart_btn" type="Button" parent="."]
+offset_left = 83.0
+offset_top = 319.0
+offset_right = 200.0
+offset_bottom = 372.0
+text = "Restart"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="pipe_delete" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pipe_delete"]
+z_index = -1
+position = Vector2(-32, 262)
+shape = SubResource("RectangleShape2D_o482x")
+
+[connection signal="didtouch" from="." to="Bird" method="_on_main_didtouch"]
+[connection signal="justdie" from="Bird" to="." method="_on_bird_justdie"]
+[connection signal="input_event" from="Toutch_area" to="." method="_on_toutch_area_input_event"]
+[connection signal="pressed" from="Restart_btn" to="." method="_on_restart_btn_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="pipe_delete" to="." method="_on_pipe_delete_area_entered"]

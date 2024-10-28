@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2ypw15jex8i0"]
+
+[ext_resource type="Texture2D" uid="uid://dyh53sdodaqo4" path="res://assets/spirtes/flip-down.png" id="1_lyy8m"]
+[ext_resource type="Script" path="res://scripts/bird.gd" id="1_ocet5"]
+[ext_resource type="Texture2D" uid="uid://2bmb7p8musv6" path="res://assets/spirtes/flip-mid.png" id="2_0huxj"]
+[ext_resource type="Texture2D" uid="uid://b2mjser30cs1l" path="res://assets/spirtes/flip-up.png" id="3_htk6b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eyejs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lyy8m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0huxj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_htk6b")
+}],
+"loop": true,
+"name": &"Bird_anim",
+"speed": 10.0
+}]
+
+[node name="Bird" type="CharacterBody2D" groups=["bird"]]
+scale = Vector2(0.4, 0.4)
+collision_mask = 3
+script = ExtResource("1_ocet5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_eyejs")
+animation = &"Bird_anim"
+autoplay = "Bird_anim"
+frame = 1
+frame_progress = 0.932285
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-14, -34, 20, -34, 20, -28, 25, -28, 25, -24, 31, -23, 31, -17, 37, -17, 38, -1, 42, 0, 42, 6, 48, 6, 48, 10, 42, 12, 42, 22, 37, 23, 37, 28, 8, 28, 8, 33, -21, 34, -20, 28, -32, 28, -32, 23, -37, 22, -37, 17, -42, 17, -42, 12, -48, 11, -48, 0, -42, 0, -42, -11, -37, -11, -37, -17, -31, -17, -31, -23, -25, -23, -25, -28, -14, -28)
+metadata/_edit_lock_ = true
